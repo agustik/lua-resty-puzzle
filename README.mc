@@ -6,11 +6,14 @@ You need cJSON lua module and lua-resty-redis
 
 
 ### How it works
-Lua creates SEED (random string)
-Lua picks number between 6000 and difficulty
-Lua creates SHA1 with the number and SHA1
-
-Then send the SHA1 and SEED and ask for the number, javascript uses forloop to find out the number
+1. Client asks for content, lua asks for cookie
+2. Cookie is checked and if valid then pass, if not then ...
+3. Lua creates SEED (random string)
+4. Lua picks number between 6000 and difficulty
+5. Lua creates SHA1 with the number and SHA1
+6. Then send the SHA1 and SEED and ask for the number
+7. Browser javascript uses forloop to find out the number
+8. Javascript sends result and gets back a cookie
 
 ### Example OpenResty Site Config
 ```
