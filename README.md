@@ -25,8 +25,8 @@ server {
     listen 80;
     server_name api.dev;
 
-    access_log  /var/log/openresty/api_access.log;
-    error_log   /var/log/openresty/api_error.log;
+    access_log  /var/log/nginx/website.com-access.log;
+    error_log   /var/log/nginx/website.com-error.log;
 
     location / {
 
@@ -65,7 +65,6 @@ server {
           cookie_lifetime = 604800
           target = "___",
           cookie_name = "_cuid",
-          template = '/location/to/the/puzzle.html',
           client_key = ngx.var.remote_addr,
           timezone = "GMT",
           http_only_cookie = false,
