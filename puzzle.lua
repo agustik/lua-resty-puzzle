@@ -9,10 +9,10 @@ local clientIP = ngx.var.remote_addr
 
 local sha1 = require "sha1"
 
-local function CreatePow(size)
+local function CreatePow(min,max)
  math.randomseed(os.time());
  -- Start from 6000, so it wont be to easy
- return math.random(90000, size);
+ return math.random(min, max);
 end
 
 local function render(template, obj)
@@ -84,7 +84,8 @@ function _M.challenge(config)
   local LOG_LEVEL         = config.log_level or ngx.NOTICE
 
   local COKKIE_LIFETIME   = config.session_lifetime or 604800
-  local BASIC_DIFFICULTY  = config.difficulty or 300000
+  local BASIC_DIFFICULTY  = config.difficulty or 100
+  local MIN_DIFFICULTY    = config.min_difficulty or 0
   local SEED_LENGTH       = config.seed_lengt or 30
   local SEED_LIFETIME     = config.lifetime or 60
   local RESPONSE_TARGET   = config.target or "___"
@@ -170,7 +171,7 @@ function _M.challenge(config)
   if redis_fetch == nil then
     SEED = RandomString(30)
     -- Create Proof Of Work integer
-    POW=CreatePow(DIFF);
+    POW=CreatePow(MIN_DIFFICULTY,DIFF);
 
     -- Create string for SHA1
     local sha1_string = SEED .. POW
