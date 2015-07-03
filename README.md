@@ -3,6 +3,10 @@ This is a OpenResty Lua and Redis powered puzzle for browsers to mitigate DDOS a
 
 ### OpenResty Prerequisite
 You need cJSON lua module and lua-resty-redis
+Also you need lua-resty-cookie and lua-resty-redis
+https://github.com/cloudflare/lua-resty-cookie
+https://github.com/openresty/lua-resty-redis
+
 
 
 ### How it works
@@ -35,7 +39,8 @@ server {
           puzzle.challenge {
             log_level = ngx.INFO,
             cookie_lifetime = 604800
-            difficulty = 300000,
+            difficulty = 100,
+            min_difficulty = 0,
             seed_lengt = 30,
             seed_lifetime = 60,
             target = "___",
@@ -61,9 +66,6 @@ server {
         puzzle.response {
           log_level = ngx.INFO,
           cookie_lifetime = 604800
-          difficulty = 300000,
-          seed_lengt = 30,
-          seed_lifetime = 60,
           target = "___",
           cookie_name = "_cuid",
           template = '/location/to/the/puzzle.html',
