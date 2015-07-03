@@ -2,10 +2,7 @@
 This is a OpenResty Lua and Redis powered puzzle for browsers to mitigate DDOS attacks
 
 ### OpenResty Prerequisite
-*You need cJSON lua module and lua-resty-redis*
-*Also you need lua-resty-cookie and lua-resty-redis*
-[lua-resty-cookie](https://github.com/cloudflare/lua-resty-cookie)
-[lua-resty-reids](https://github.com/openresty/lua-resty-redis)
+* You need cJSON lua module, [lua-resty-cookie](https://github.com/cloudflare/lua-resty-cookie) and [lua-resty-reids](https://github.com/openresty/lua-resty-redis)
 
 
 
