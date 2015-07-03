@@ -57,6 +57,18 @@ local function Fetch(redis_connection, key, log_level)
   end
 end
 
+local function Del(redis_connection, key, log_level)
+  local json, err = redis_connection:del(key)
+  if not json then
+     -- ngx.say("failed to get ipaddr ", err)
+     ngx.log(log_level, "failed to delete key ", err)
+     ngx.exit(nginx.HTTP_INTERNAL_SERVER_ERROR)
+     return
+  end
+  return true
+end
+
+
 local function Set(redis_connection, key, data, ttl, log_level)
   ok, err = redis_connection:set(key, cjson.encode(data))
   if not ok then
@@ -373,6 +385,7 @@ function _M.response(config)
         else
           output.status="success"
           output.redirect=redis_fetch['URL']
+          Del(REDIS_CONNECTION, SEED_FETCH_KEY, LOG_LEVEL)
         end
         if not ok then
             ngx.log(LOG_LEVEL, err)
